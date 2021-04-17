@@ -1,0 +1,11 @@
+# List of directories and files to hide from git
+
+# Directory
+dev/
+obj/
+
+# File(s)
+*.exe
+*.o
+
+

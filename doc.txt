@@ -1,0 +1,21 @@
+C Project Creator
+
+List of arguments.
+
+Arguments for creating C project.
+<Project-Name>      - Name of project to create delimited by hypen (-)
+                      or underscore. Don't use space to delimit project
+                      name as 'cpc' will assume that the second word for
+                      the project name (if any), will be the next
+					  argument.
+<Filename>          - Filename for the C file to create.
+
+Arguments for creating individual file.
+create              - To create C file or C header file.
+-c                  - Indicate that C file will be created. Use together
+                      with 'create'.
+-h                  - Indicate that C header file will be created. Use
+                      together with 'create'.
+<Filename>          - Filename for the C file or C header file to create.
+
+
