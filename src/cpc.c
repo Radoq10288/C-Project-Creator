@@ -35,53 +35,67 @@ int main(int argc, char **argv) {
 	char *project_name = argv[1],
 		 *c_filename = argv[2];
 
+	char *cpc_commands[] = {
+		"help", "new"
+	};
+
+	/* TODO
+	 * Need definition of the purpose of 'arg_number'.
+	 */
+	int arg_number[] = {
+		2, 4
+	};
+
+	int cc_size = sizeof(cpc_commands) / sizeof(char*),
+		com_index;
+
 	if (argc == 1) {
 		puts("Too few arguments.");
 		goto handle_error;
 	}
-	else if (strcmp(argv[1], "create") == 0) {
-		if (argc >= 2 && argc < 4) {
-			puts("Few arguments.");
-			goto handle_error;
-		}
-		else if (argc > 4) {
-			puts("Too many arguments.");
-			goto handle_error;
-		}
-		else {
-			// Notice
-			puts("Notice:\n"
-				 "Development on progress...");
-			puts("C file or C header file will be created here, soon...");
-		}
-	}
-	else if (strcmp(argv[1], "help") == 0) {
-		if (argc > 2) {
-			puts("Too many arguments.");
-			goto handle_error;
-		}
-		else {
-			// Notice
-			puts("Notice:\n"
-				 "Development on progress...");
-			puts("List of C project creator command(s) and arguments "
-				 "should show here, soon...");
-		}
+	else if (argc > 4) {
+		puts("Too many argument.");
+		goto handle_error;
 	}
 	else {
-		if (argc >= 2 && argc < 3) {
-			puts("Few arguments.");
-			goto handle_error;
-		}
-		else if (argc > 3) {
-			puts("Too many arguments.");
-			goto handle_error;
-		}
-		else {
-			// Notice
-			puts("Notice:\n"
-				 "Development on progress...");
-			puts("C project setup should be done here, soon...");
+		com_index = 0;
+		while (com_index != cc_size) {
+			if (strcmp(argv[1], cpc_commands[com_index]) == 0) {
+				if (argc < arg_number[com_index]) {
+					puts("Few arguments.");
+					goto handle_error;
+				}
+				else if (argc > arg_number[com_index]) {
+					puts("Too many arguments.");
+					goto handle_error;
+				}
+				else {
+					// Notice
+					puts("Notice:\n"
+				 		 "Development on progress...");
+					printf("Execute cpc command '%s'.\n", argv[1]);
+					break;
+				}
+			}
+
+			com_index++;
+
+			if (com_index == cc_size) {
+				if (argc == 2) {
+					puts("Few arguments.");
+					goto handle_error;
+				}
+				else if (argc > 3) {
+					puts("Too many arguments.");
+					goto handle_error;
+				}
+				else {
+					puts("Notice:\n"
+				 		 "Development on progress...");
+					printf("Create project '%s'.\n", argv[1]);
+					break;
+				}
+			}
 		}
 	}
 
