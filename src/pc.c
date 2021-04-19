@@ -32,6 +32,17 @@
 #include <string.h>
 
 
+static int create_makefile(char *c_filename) {
+	/* TODO
+	 * Create makefile that builds executable C program.
+	 * Function that create the actual makefile will be implemented
+	 * in separate module.
+	 */
+
+	return 0;
+}
+
+
 int create_project(char *project_name, char *c_filename) {
 	if (_mkdir(project_name)) {
 		goto handle_error;
@@ -49,9 +60,12 @@ int create_project(char *project_name, char *c_filename) {
 	_chdir("...");
 	
 	/* TODO
-	 * Create makefile here.
+	 * Create makefile here.	[half-done]
 	 * Create cmd script here.
 	 */
+	if (create_makefile(c_filename)) {
+		goto handle_error;
+	}
 	
 	return 0;
 
