@@ -25,7 +25,7 @@ Sample structure of output.
 
 **Creating individual file**
 ```
->cpc create <File-type> <Filename>
+>cpc new <File-type> <Filename>
 ```
 \- creates C file or C header file.
 <br />

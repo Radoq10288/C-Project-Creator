@@ -11,7 +11,7 @@ Arguments for creating C project.
 <Filename>          - Filename for the C file to create.
 
 Arguments for creating individual file.
-create              - To create C file or C header file.
+new              - To create C file or C header file.
 -c                  - Indicate that C file will be created. Use together
                       with 'create'.
 -h                  - Indicate that C header file will be created. Use
