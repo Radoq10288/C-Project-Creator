@@ -32,6 +32,56 @@
 #include <string.h>
 
 
+static int create_cmd_script(char *c_filename) {
+
+	char *cmd_script_template[] = {
+		"@echo off\n\n",
+		"if not exist \"Makefile\" (\n",
+		"\techo No 'Makefile' is found!\n",
+		"\techo.\n\n",
+		") else (\n",
+		"\trem Clear the screen\n",
+		"\tcls\n\n",
+		"\trem Create 'obj' directory if it doesn't exist.\n",
+		"\tif not exist \"obj\" (\n",
+		"\t\tmkdir obj\n",
+		"\t)\n\n",
+		"\techo.\n",
+		"\techo ---------------Clean directory------------------\n",
+		"\trem Clean the current directory\n",
+		"\tmingw32-make clean\n\n",
+		"\techo.\n",
+		"\techo.\n",
+		"\techo -----------------Build Files--------------------\n",
+		"\trem Build project\n",
+		"\tmingw32-make\n\n",
+		"\techo.\n",
+		"\techo.\n",
+		"\techo -----------------Run Program--------------------\n",
+		"\techo.\n\n",
+		"\trem Change to directory to bin\n",
+		"\tcd bin\n\n",
+		"\trem Run the program\n",
+		"\t", c_filename, ".exe\n\n",
+		"\techo.\n",
+		"\techo.\n\n",
+		"\trem Return to previous directory.\n",
+		"\tcd ..\n\n",
+		")\n\n\n",
+	};
+
+	int cst_arr_size = sizeof(cmd_script_template) / sizeof(char*),
+		cst_index;
+
+	/* TODO
+	 * Function that create the actual cmd script will be
+	 * implemented here.
+	 */
+
+	return 0;
+}
+
+
 static int create_makefile(char *c_filename) {
 	/* TODO
 	 * Create makefile that builds executable C program.
@@ -61,8 +111,12 @@ int create_project(char *project_name, char *c_filename) {
 	
 	/* TODO
 	 * Create makefile here.	[half-done]
-	 * Create cmd script here.
+	 * Create cmd script here.	[half-done]
 	 */
+	if (create_cmd_script(c_filename)) {
+		goto handle_error;
+	}
+
 	if (create_makefile(c_filename)) {
 		goto handle_error;
 	}
