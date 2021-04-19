@@ -27,6 +27,7 @@
  */
 
 
+#include "pc.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -92,7 +93,13 @@ int main(int argc, char **argv) {
 				else {
 					puts("Notice:\n"
 				 		 "Development on progress...");
-					printf("Create project '%s'.\n", argv[1]);
+					if (!create_project(project_name, c_filename)) {
+						printf("C project '%s' created successfully.\n", project_name);
+					}
+					else {
+						puts("Failed to create C project.");
+						goto handle_error;
+					}
 					break;
 				}
 			}
