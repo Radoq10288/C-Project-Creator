@@ -29,6 +29,7 @@
 
 #include <io.h>
 #include <stdio.h>
+#include <string.h>
 
 
 int create_project(char *project_name, char *c_filename) {
@@ -52,6 +53,39 @@ int create_project(char *project_name, char *c_filename) {
 	 * Create cmd script here.
 	 */
 	
+	return 0;
+
+	handle_error:
+	return -1;
+}
+
+
+int create_new_file(char *filename, char *file_type) {
+	char *file_type_list[] = {
+		"-c", "-h"
+	};
+
+	int ftl_size = sizeof(file_type_list) / sizeof(char*),
+		ftl_index = 0;
+
+	while (ftl_index != ftl_size) {
+		if (strcmp(file_type, file_type_list[ftl_index]) == 0) {
+			/* TODO
+			 * Create C file or C header file here.
+			 */
+			break;
+		}
+
+		ftl_index++;
+
+		if (ftl_index == ftl_size) {
+			/* If file_type have no match found on file_type_list,
+			 * branch-out to handle_error.
+			 */
+			goto handle_error;
+		}
+	}
+
 	return 0;
 
 	handle_error:

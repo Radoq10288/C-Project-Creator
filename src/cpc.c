@@ -47,6 +47,10 @@ int main(int argc, char **argv) {
 		2, 4
 	};
 
+	int (*exec_cpc_command[])() = {
+		NULL, &create_new_file
+	};
+
 	int cc_size = sizeof(cpc_commands) / sizeof(char*),
 		com_index;
 
@@ -74,7 +78,13 @@ int main(int argc, char **argv) {
 					// Notice
 					puts("Notice:\n"
 				 		 "Development on progress...");
-					printf("Execute cpc command '%s'.\n", argv[1]);
+					if (!exec_cpc_command[com_index](argv[3], argv[2])) {
+						printf("New file '%s' created.\n", argv[3]);
+					}
+					else {
+						puts("Failed to create file.");
+						goto handle_error;
+					}
 					break;
 				}
 			}
