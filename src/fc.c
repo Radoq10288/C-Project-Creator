@@ -29,7 +29,12 @@
 
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "sysdt.h"
+
+
+static char *ucase_string;
 
 
 int create_c_file(char *c_filename) {
@@ -91,10 +96,54 @@ int create_ec_file(char *c_filename) {
 	return 0;
 }
 
+/* Frees memory allocated by malloc() in toupper_string().
+ */
+void free_mem_fc(void) {
+	ucase_string = NULL;
+
+	free(ucase_string);
+}
+
+
+/* Description:	Convert string of lower case letters to string
+ *				of capital letters.
+ *
+ * Parameter:
+ *   *lcase_string - strings containing lower case letters.
+ *
+ * Return:		If function succeed, returns string in upper case.
+ *				Else, return null.
+ */
+static char *toupper_string(char *lcase_string) {
+    if (lcase_string == NULL) {
+        goto handle_error;
+    }
+
+	int lcase_string_len = strlen(lcase_string);
+	ucase_string = malloc(sizeof(char) * lcase_string_len);
+    if (ucase_string == NULL) {
+		goto handle_error;
+	}
+
+	ucase_string[lcase_string_len] = '\0';
+
+	int lcs_char_index = 0;
+	while (lcs_char_index != lcase_string_len) {
+		ucase_string[lcs_char_index] = toupper(lcase_string[lcs_char_index]);
+		lcs_char_index++;
+	}
+
+	atexit(free_mem_fc);
+	return ucase_string;
+
+	handle_error:
+	return NULL;
+}
+
 
 int create_h_file(char *h_filename) {
 	char *current_date_time = get_sys_date_time(),
-		 *macro_name = h_filename;
+		 *macro_name = toupper_string(h_filename);
 
 	/* Transform each non-alphabet characters to underscore
 	* (_) character.
