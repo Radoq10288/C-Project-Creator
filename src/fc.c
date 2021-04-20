@@ -27,6 +27,7 @@
  */
 
 
+#include <ctype.h>
 #include <stdio.h>
 #include "sysdt.h"
 
@@ -85,6 +86,51 @@ int create_ec_file(char *c_filename) {
 	/* TODO
 	 * Implement a function that will create a file and write to it
 	 * the value of c_file_template string array.
+	 */
+
+	return 0;
+}
+
+
+int create_h_file(char *h_filename) {
+	char *current_date_time = get_sys_date_time(),
+		 *macro_name = h_filename;
+
+	/* Transform each non-alphabet characters to underscore
+	* (_) character.
+	*/
+	int char_index = 0;
+
+	while (macro_name[char_index] != '\0') {
+		if (!isalnum(macro_name[char_index])) {
+			macro_name[char_index] = '_';
+		}
+
+		char_index++;
+	}
+
+	char *header_file_template[] = {
+		"/* File:\t\t\t", h_filename, ".h\n",
+		" *\n",
+		" * Author:\t\t\t\n",
+		" *\n",
+		" * Description:\t\t\n",
+		" *\n",
+		" * Date created:\t", current_date_time, "\n",
+		" */\n\n\n",
+		"#ifndef _", macro_name, "_H_",
+		"\n",
+		"#define _", macro_name, "_H_",
+		"\n\n",
+		"\t// Functions definitions goes here...",
+		"\n\n",
+		"#endif // _", macro_name, "_H_INCLUDED_",
+		"\n\n\n"
+	};
+
+	/* TODO
+	 * Implement a function that will create a file and write to it
+	 * the value of header_file_template string array.
 	 */
 
 	return 0;

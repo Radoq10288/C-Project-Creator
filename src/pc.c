@@ -137,7 +137,7 @@ int create_new_file(char *filename, char *file_type) {
 	};
 	
 	int (*exec_create_file[])() = {
-		&create_ec_file, NULL
+		&create_ec_file, &create_h_file
 	};
 
 	int ftl_size = sizeof(file_type_list) / sizeof(char*),
