@@ -135,15 +135,19 @@ int create_new_file(char *filename, char *file_type) {
 	char *file_type_list[] = {
 		"-c", "-h"
 	};
+	
+	int (*exec_create_file[])() = {
+		&create_ec_file, NULL
+	};
 
 	int ftl_size = sizeof(file_type_list) / sizeof(char*),
 		ftl_index = 0;
 
 	while (ftl_index != ftl_size) {
 		if (strcmp(file_type, file_type_list[ftl_index]) == 0) {
-			/* TODO
-			 * Create C file or C header file here.
-			 */
+			if ((*exec_create_file[ftl_index])(filename)) {
+				goto handle_error;
+			}
 			break;
 		}
 

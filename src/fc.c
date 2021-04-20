@@ -65,3 +65,29 @@ int create_c_file(char *c_filename) {
 }
 
 
+int create_ec_file(char *c_filename) {
+	char *current_date_time = get_sys_date_time();
+
+	char *c_file_template[] = {
+		"/* File:\t\t\t", c_filename, ".c\n",
+		" *\n",
+		" * Author:\t\t\t\n",
+		" *\n",
+		" * Description:\t\t\n",
+		" *\n",
+		" * Date created:\t", current_date_time, "\n",
+		" */\n\n\n",
+		"\n\n\n"
+	};
+
+	int cft_size = sizeof(c_file_template) / sizeof(char*);
+
+	/* TODO
+	 * Implement a function that will create a file and write to it
+	 * the value of c_file_template string array.
+	 */
+
+	return 0;
+}
+
+
