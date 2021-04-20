@@ -72,15 +72,16 @@ static int create_cmd_script(char *c_filename) {
 		")\n\n\n",
 	};
 
-	int cst_arr_size = sizeof(cmd_script_template) / sizeof(char*),
-		cst_index;
+	int cst_size = sizeof(cmd_script_template) / sizeof(char*);
 
-	/* TODO
-	 * Function that create the actual cmd script will be
-	 * implemented here.
-	 */
+	if (create_txt_file("debug_build", ".bat", cmd_script_template, cst_size)) {
+		goto handle_error;
+	}
 
 	return 0;
+
+	handle_error:
+	return -1;
 }
 
 
@@ -110,12 +111,8 @@ int create_project(char *project_name, char *c_filename) {
 		goto handle_error;
 	}
 
-	_chdir("...");
-	
-	/* TODO
-	 * Create makefile here.	[half-done]
-	 * Create cmd script here.	[half-done]
-	 */
+	_chdir("..");
+
 	if (create_cmd_script(c_filename)) {
 		goto handle_error;
 	}
@@ -123,7 +120,7 @@ int create_project(char *project_name, char *c_filename) {
 	if (create_makefile(c_filename)) {
 		goto handle_error;
 	}
-	
+
 	return 0;
 
 	handle_error:

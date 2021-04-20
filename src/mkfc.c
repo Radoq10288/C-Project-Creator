@@ -27,6 +27,7 @@
  */
 
 
+#include "fc.h"
 #include <stdio.h>
 
 
@@ -63,13 +64,14 @@ int create_exec_makefile(char *c_filename) {
 
 	int mkft_size = sizeof(makefile_template) / sizeof(char*);
 	
-	/* TODO
-	 * Implement a function that create a text file named 'makefile'
-	 * and write the to it the value of 'makefile_template' string
-	 * array.
-	 */
+	if (create_txt_file("makefile", "", makefile_template, mkft_size)) {
+		goto handle_error;
+	}
 
 	return 0;
+
+	handle_error:
+	return -1;
 }
 
 

@@ -37,6 +37,53 @@
 static char *ucase_string;
 
 
+int create_txt_file(char *filename, char *file_extension, char *file_content[], int fc_size) {
+	if (filename == NULL || file_extension == NULL ||
+		file_content == NULL || fc_size <= 0
+	   ) {
+		goto handle_error;
+	}
+
+	int filename_length = strlen(filename),
+		file_extension_length = strlen(file_extension);
+	char *ctf_filename = malloc(sizeof(char) * (filename_length + file_extension_length + 2));
+	FILE *new_file;
+
+	if (ctf_filename == NULL) {
+		goto handle_error;
+	}
+
+	strcpy(ctf_filename, filename);
+	strcat(ctf_filename, file_extension);
+
+	new_file = fopen(ctf_filename, "r");
+	if (new_file == NULL) {
+		new_file = fopen(ctf_filename, "w");
+		if (new_file == NULL) {
+			goto handle_error;
+		}
+		else {
+			int cf_index;
+			for (cf_index = 0; cf_index != fc_size; cf_index++) {
+				fputs(file_content[cf_index], new_file);
+			}
+		}
+	}
+	else {
+		goto handle_error;
+	}
+
+	free(ctf_filename);
+	ctf_filename = NULL;
+	fclose(new_file);
+
+	return 0;
+
+	handle_error:
+	return -1;
+}
+
+
 int create_c_file(char *c_filename) {
 	char *current_date_time = get_sys_date_time();
 	
@@ -62,12 +109,14 @@ int create_c_file(char *c_filename) {
 
 	int cft_size = sizeof(c_file_template) / sizeof(char*);
 
-	/* TODO
-	 * Implement a function that will create a file and write to it
-	 * the value of c_file_template string array.
-	 */
+	if (create_txt_file(c_filename, ".c", c_file_template, cft_size)) {
+		goto handle_error;
+	}
 
 	return 0;
+
+	handle_error:
+	return -1;
 }
 
 
@@ -88,12 +137,14 @@ int create_ec_file(char *c_filename) {
 
 	int cft_size = sizeof(c_file_template) / sizeof(char*);
 
-	/* TODO
-	 * Implement a function that will create a file and write to it
-	 * the value of c_file_template string array.
-	 */
+	if (create_txt_file(c_filename, ".c", c_file_template, cft_size)) {
+		goto handle_error;
+	}
 
 	return 0;
+
+	handle_error:
+	return -1;
 }
 
 /* Frees memory allocated by malloc() in toupper_string().
@@ -177,12 +228,16 @@ int create_h_file(char *h_filename) {
 		"\n\n\n"
 	};
 
-	/* TODO
-	 * Implement a function that will create a file and write to it
-	 * the value of header_file_template string array.
-	 */
+	int hft_size = sizeof(header_file_template) / sizeof(char*);
+
+	if (create_txt_file(h_filename, ".h", header_file_template, hft_size)) {
+		goto handle_error;
+	}
 
 	return 0;
+
+	handle_error:
+	return -1;
 }
 
 
