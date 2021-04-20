@@ -27,6 +27,7 @@
  */
 
 
+#include "fc.h"
 #include <io.h>
 #include "mkfc.h"
 #include <stdio.h>
@@ -104,11 +105,11 @@ int create_project(char *project_name, char *c_filename) {
 	_mkdir("bin");
 	_mkdir("src");
 	_chdir("src");
-	
-	/* TODO
-	 * Create C file here.
-	 */
-	
+
+	if (create_c_file(c_filename)) {
+		goto handle_error;
+	}
+
 	_chdir("...");
 	
 	/* TODO
