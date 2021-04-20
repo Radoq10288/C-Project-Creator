@@ -28,6 +28,7 @@
 
 
 #include <io.h>
+#include "mkfc.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -83,13 +84,14 @@ static int create_cmd_script(char *c_filename) {
 
 
 static int create_makefile(char *c_filename) {
-	/* TODO
-	 * Create makefile that builds executable C program.
-	 * Function that create the actual makefile will be implemented
-	 * in separate module.
-	 */
+	if (create_exec_makefile(c_filename)) {
+		goto handle_error;
+	}
 
 	return 0;
+
+	handle_error:
+	return -1;
 }
 
 
