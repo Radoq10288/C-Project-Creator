@@ -27,6 +27,7 @@
  */
 
 
+#include "cpcerr.h"
 #include "fc.h"
 #include <stdio.h>
 
@@ -62,16 +63,18 @@ int create_exec_makefile(char *c_filename) {
 		"\n\n\n"
 	};
 
-	int mkft_size = sizeof(makefile_template) / sizeof(char*);
-	
-	if (create_txt_file("makefile", "", makefile_template, mkft_size)) {
+	int mkft_size = sizeof(makefile_template) / sizeof(char*),
+		cem_status;
+
+	cem_status = create_txt_file("makefile", "", makefile_template, mkft_size);
+	if (cem_status) {
 		goto handle_error;
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return cem_status;
 }
 
 

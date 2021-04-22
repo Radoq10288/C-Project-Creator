@@ -27,6 +27,7 @@
  */
 
 
+#include "cpcerr.h"
 #include "pc.h"
 #include <stdio.h>
 #include <string.h>
@@ -52,7 +53,7 @@ int main(int argc, char **argv) {
 	};
 
 	int cc_size = sizeof(cpc_commands) / sizeof(char*),
-		com_index;
+		com_index, cpc_status;
 
 	if (argc == 1) {
 		puts("Too few arguments.");
@@ -78,11 +79,12 @@ int main(int argc, char **argv) {
 					// Notice
 					puts("Notice:\n"
 				 		 "Development on progress...");
-					if (!exec_cpc_command[com_index](argv[3], argv[2])) {
+					cpc_status = exec_cpc_command[com_index](argv[3], argv[2]);
+					if (!cpc_status) {
 						printf("New file '%s' created.\n", argv[3]);
 					}
 					else {
-						puts("Failed to create file.");
+						print_cpc_err_msg(cpc_status);
 						goto handle_error;
 					}
 					break;
@@ -103,11 +105,12 @@ int main(int argc, char **argv) {
 				else {
 					puts("Notice:\n"
 				 		 "Development on progress...");
-					if (!create_project(project_name, c_filename)) {
+					cpc_status = create_project(project_name, c_filename);
+					if (!cpc_status) {
 						printf("C project '%s' created successfully.\n", project_name);
 					}
 					else {
-						puts("Failed to create C project.");
+						print_cpc_err_msg(cpc_status);
 						goto handle_error;
 					}
 					break;

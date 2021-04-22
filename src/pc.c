@@ -27,6 +27,7 @@
  */
 
 
+#include "cpcerr.h"
 #include "fc.h"
 #include <io.h>
 #include "mkfc.h"
@@ -72,33 +73,39 @@ static int create_cmd_script(char *c_filename) {
 		")\n\n\n",
 	};
 
-	int cst_size = sizeof(cmd_script_template) / sizeof(char*);
+	int cst_size = sizeof(cmd_script_template) / sizeof(char*),
+		ccs_status;
 
-	if (create_txt_file("debug_build", ".bat", cmd_script_template, cst_size)) {
+	ccs_status = create_txt_file("debug_build", ".bat", cmd_script_template, cst_size);
+	if (ccs_status) {
 		goto handle_error;
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return ccs_status;
 }
 
 
 static int create_makefile(char *c_filename) {
-	if (create_exec_makefile(c_filename)) {
+	int cm_status = create_exec_makefile(c_filename);
+	if (cm_status) {
 		goto handle_error;
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return cm_status;
 }
 
 
 int create_project(char *project_name, char *c_filename) {
+	int cp_status;
+
 	if (_mkdir(project_name)) {
+		cp_status = PROJECT_EXIST;
 		goto handle_error;
 	}
 
@@ -107,24 +114,27 @@ int create_project(char *project_name, char *c_filename) {
 	_mkdir("src");
 	_chdir("src");
 
-	if (create_c_file(c_filename)) {
+	cp_status = create_c_file(c_filename);
+	if (cp_status) {
 		goto handle_error;
 	}
 
 	_chdir("..");
 
-	if (create_cmd_script(c_filename)) {
+	cp_status = create_cmd_script(c_filename);
+	if (cp_status) {
 		goto handle_error;
 	}
 
-	if (create_makefile(c_filename)) {
+	cp_status = create_makefile(c_filename);
+	if (cp_status) {
 		goto handle_error;
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return cp_status;
 }
 
 
@@ -138,11 +148,12 @@ int create_new_file(char *filename, char *file_type) {
 	};
 
 	int ftl_size = sizeof(file_type_list) / sizeof(char*),
-		ftl_index = 0;
+		ftl_index = 0, cnf_status;
 
 	while (ftl_index != ftl_size) {
 		if (strcmp(file_type, file_type_list[ftl_index]) == 0) {
-			if ((*exec_create_file[ftl_index])(filename)) {
+			cnf_status = (*exec_create_file[ftl_index])(filename);
+			if (cnf_status) {
 				goto handle_error;
 			}
 			break;
@@ -154,14 +165,15 @@ int create_new_file(char *filename, char *file_type) {
 			/* If file_type have no match found on file_type_list,
 			 * branch-out to handle_error.
 			 */
+			cnf_status = INVALID_ARGUMENT;
 			goto handle_error;
 		}
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return cnf_status;
 }
 
 

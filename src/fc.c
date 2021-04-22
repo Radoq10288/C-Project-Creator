@@ -27,6 +27,7 @@
  */
 
 
+#include "cpcerr.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,9 +39,12 @@ static char *ucase_string;
 
 
 int create_txt_file(char *filename, char *file_extension, char *file_content[], int fc_size) {
+	int ctf_status;
+
 	if (filename == NULL || file_extension == NULL ||
 		file_content == NULL || fc_size <= 0
 	   ) {
+		ctf_status = NULL_ARGUMENT;
 		goto handle_error;
 	}
 
@@ -50,6 +54,7 @@ int create_txt_file(char *filename, char *file_extension, char *file_content[], 
 	FILE *new_file;
 
 	if (ctf_filename == NULL) {
+		ctf_status = MEMORY_ALLOC_FAILURE;
 		goto handle_error;
 	}
 
@@ -60,6 +65,7 @@ int create_txt_file(char *filename, char *file_extension, char *file_content[], 
 	if (new_file == NULL) {
 		new_file = fopen(ctf_filename, "w");
 		if (new_file == NULL) {
+			ctf_status = FAILED_CREATE_FILE;
 			goto handle_error;
 		}
 		else {
@@ -70,6 +76,7 @@ int create_txt_file(char *filename, char *file_extension, char *file_content[], 
 		}
 	}
 	else {
+		ctf_status = FILE_EXIST;
 		goto handle_error;
 	}
 
@@ -77,10 +84,10 @@ int create_txt_file(char *filename, char *file_extension, char *file_content[], 
 	ctf_filename = NULL;
 	fclose(new_file);
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return ctf_status;
 }
 
 
@@ -107,16 +114,18 @@ int create_c_file(char *c_filename) {
 		"\n\n\n"
 	};
 
-	int cft_size = sizeof(c_file_template) / sizeof(char*);
+	int cft_size = sizeof(c_file_template) / sizeof(char*),
+		ccf_status;
 
-	if (create_txt_file(c_filename, ".c", c_file_template, cft_size)) {
+	ccf_status = create_txt_file(c_filename, ".c", c_file_template, cft_size);
+	if (ccf_status) {
 		goto handle_error;
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return ccf_status;
 }
 
 
@@ -135,16 +144,18 @@ int create_ec_file(char *c_filename) {
 		"\n\n\n"
 	};
 
-	int cft_size = sizeof(c_file_template) / sizeof(char*);
+	int cft_size = sizeof(c_file_template) / sizeof(char*),
+		cef_status;
 
-	if (create_txt_file(c_filename, ".c", c_file_template, cft_size)) {
+	cef_status = create_txt_file(c_filename, ".c", c_file_template, cft_size);
+	if (cef_status) {
 		goto handle_error;
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return cef_status;
 }
 
 /* Frees memory allocated by malloc() in toupper_string().
@@ -228,16 +239,18 @@ int create_h_file(char *h_filename) {
 		"\n\n\n"
 	};
 
-	int hft_size = sizeof(header_file_template) / sizeof(char*);
+	int hft_size = sizeof(header_file_template) / sizeof(char*),
+		chf_status;
 
-	if (create_txt_file(h_filename, ".h", header_file_template, hft_size)) {
+	chf_status = create_txt_file(h_filename, ".h", header_file_template, hft_size);
+	if (chf_status) {
 		goto handle_error;
 	}
 
-	return 0;
+	return CPC_OK;
 
 	handle_error:
-	return -1;
+	return chf_status;
 }
 
 
