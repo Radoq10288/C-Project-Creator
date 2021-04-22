@@ -36,7 +36,8 @@
 	 *	project_name	- name of the C project to create.
 	 *	c_filename		- name of the C file to create.
 	 *
-	 * Return:		If function succeed, return 0. Else, return -1.
+	 * Return:		If function succeed, return 0. Else, return non-
+	 *				negative value.
 	 */
 	int create_project(char *project_name, char *c_filename);
 
@@ -47,7 +48,8 @@
 	 *	file_type	- type of file to create. Argument of '-c',
 	 *				  for C file, and '-h' for C header file.
 	 *
-	 * Return:		If function succeed, return 0. Else, return -1.
+	 * Return:		If function succeed, return 0. Else, return non-
+	 *				negative value.
 	 */
 	int create_new_file(char *filename, char *file_type);
 
