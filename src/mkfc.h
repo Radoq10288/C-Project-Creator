@@ -41,7 +41,8 @@
 	 * Parameter:
 	 *	c_filename	- filename of C file.
 	 *
-	 * Return:		If function succeed, return 0. Else, it return -1.
+	 * Return:		If function succeed, return 0. Else, return non-
+	 *				negative value.
 	 */
 	int create_exec_makefile(char *c_filename);
 
