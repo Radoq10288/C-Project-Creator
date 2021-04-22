@@ -36,7 +36,8 @@
 	 * Parameter:
 	 *	c_filename	- filename of the C file to create.
 	 *
-	 * Return:		If function succeed, return 0. Else, return -1.
+	 * Return:		If function succeed, return 0. Else, return
+	 *				non-negative value.
 	 */
 	int create_c_file(char *c_filename);
 
@@ -45,7 +46,8 @@
 	 * Parameter:
 	 *	c_filename	- filename of the C file to create.
 	 *
-	 * Return:		If function succeed, return 0. Else, return -1.
+	 * Return:		If function succeed, return 0. Else, return
+	 *				non-negative value.
 	 */
 	int create_ec_file(char *c_filename);
 
@@ -54,7 +56,8 @@
 	 * Parameter:
 	 *	h_filename	- filename of the C header file to create.
 	 *
-	 * Return:		If function succeed, it return 0. Else, return -1.
+	 * Return:		If function succeed, it return 0. Else, return
+	 *				non-negative value.
 	 */
 	int create_h_file(char *h_filename);
 
@@ -68,7 +71,8 @@
 	 *					  	  initialized.
 	 *	fc_size				- size of the string array file_content.
 	 *
-	 * Return:		If function succeed, it return 0. Else, return -1.
+	 * Return:		If function succeed, it return 0. Else, return
+	 *				non-negative values.
 	 */
 	int create_txt_file(char *filename, char *file_extension, char *file_content[], int fc_size);
 
