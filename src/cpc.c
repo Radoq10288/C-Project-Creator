@@ -28,6 +28,7 @@
 
 
 #include "cpcerr.h"
+#include "help.h"
 #include "pc.h"
 #include <stdio.h>
 #include <string.h>
@@ -45,11 +46,11 @@ int main(int argc, char **argv) {
 	 * Need definition of the purpose of 'arg_number'.
 	 */
 	int arg_number[] = {
-		2, 4
+		3, 4
 	};
 
 	int (*exec_cpc_command[])() = {
-		NULL, &create_new_file
+		&cpc_help, &create_new_file
 	};
 
 	int cc_size = sizeof(cpc_commands) / sizeof(char*),
@@ -67,27 +68,49 @@ int main(int argc, char **argv) {
 		com_index = 0;
 		while (com_index != cc_size) {
 			if (strcmp(argv[1], cpc_commands[com_index]) == 0) {
-				if (argc < arg_number[com_index]) {
-					puts("Few arguments.");
-					goto handle_error;
-				}
-				else if (argc > arg_number[com_index]) {
-					puts("Too many arguments.");
-					goto handle_error;
-				}
-				else {
-					// Notice
-					puts("Notice:\n"
-				 		 "Development on progress...");
-					cpc_status = exec_cpc_command[com_index](argv[3], argv[2]);
-					if (!cpc_status) {
-						printf("New file '%s' created.\n", argv[3]);
+				/* Executes functions in function pointer exec_cpc_command
+				 * with no arguments or have single arguments.
+				 */
+				if (argc == 2 || argc == 3) {
+					if (argc > arg_number[com_index]) {
+						puts("Too many arguments.");
+						goto handle_error;
 					}
-					else {
+
+					cpc_status = exec_cpc_command[com_index](argv[2]);
+					if (cpc_status) {
 						print_cpc_err_msg(cpc_status);
 						goto handle_error;
 					}
 					break;
+				}
+
+				/* Executes functions in function pointer exec_cpc_command
+				 * with 2 arguments.
+				 */
+				if (argc == 4) {
+					if (argc < arg_number[com_index]) {
+					puts("Few arguments.");
+					goto handle_error;
+					}
+					else if (argc > arg_number[com_index]) {
+						puts("Too many arguments.");
+						goto handle_error;
+					}
+					else {
+						// Notice
+						puts("Notice:\n"
+							 "Development on progress...");
+						cpc_status = exec_cpc_command[com_index](argv[3], argv[2]);
+						if (!cpc_status) {
+							printf("New file '%s' created.\n", argv[3]);
+						}
+						else {
+							print_cpc_err_msg(cpc_status);
+							goto handle_error;
+						}
+						break;
+					}
 				}
 			}
 
