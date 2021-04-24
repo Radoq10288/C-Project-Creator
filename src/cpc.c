@@ -40,18 +40,21 @@ int main(int argc, char **argv) {
 		 *c_filename = argv[2];
 
 	char *cpc_commands[] = {
-		"about", "c", "help", "new"
+		"about", "c", "help",
+		"new", "w"
 	};
 
 	/* TODO
 	 * Need definition of the purpose of 'arg_number'.
 	 */
 	int arg_number[] = {
-		2, 2, 3, 4
+		2, 2, 3,
+		4, 2
 	};
 
 	int (*exec_cpc_command[])() = {
-		&cpc_about, &cpc_conditions, &cpc_help, &create_new_file
+		&cpc_about, &cpc_conditions, &cpc_help,
+		&create_new_file, &cpc_warranty
 	};
 
 	int cc_size = sizeof(cpc_commands) / sizeof(char*),
