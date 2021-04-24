@@ -44,8 +44,14 @@ int main(int argc, char **argv) {
 		"new", "w"
 	};
 
-	/* TODO
-	 * Need definition of the purpose of 'arg_number'.
+	/* arg_number specifies the number of arguments each cpc command,
+	 * including the name of the program, consist. For example, 'new'
+	 * command consist of 4 arguments including 'cpc':
+	 *
+	 * >cpc new -c cfile
+	 *
+	 * This will be matched against 'argc' to identify if a command
+	 * has few arguments or too many.
 	 */
 	int arg_number[] = {
 		2, 2, 3,
