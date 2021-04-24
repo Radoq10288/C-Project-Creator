@@ -94,25 +94,20 @@ int main(int argc, char **argv) {
 				 */
 				if (argc == 4) {
 					if (argc < arg_number[com_index]) {
-					puts("Few arguments.");
-					goto handle_error;
+						puts("Few arguments.");
+						goto handle_error;
 					}
 					else if (argc > arg_number[com_index]) {
 						puts("Too many arguments.");
 						goto handle_error;
 					}
 					else {
-						// Notice
-						puts("Notice:\n"
-							 "Development on progress...");
 						cpc_status = exec_cpc_command[com_index](argv[3], argv[2]);
-						if (!cpc_status) {
-							printf("New file '%s' created.\n", argv[3]);
-						}
-						else {
+						if (cpc_status) {
 							print_cpc_err_msg(cpc_status);
 							goto handle_error;
 						}
+						printf("New file '%s' created.\n", argv[3]);
 						break;
 					}
 				}
@@ -130,16 +125,12 @@ int main(int argc, char **argv) {
 					goto handle_error;
 				}
 				else {
-					puts("Notice:\n"
-				 		 "Development on progress...");
 					cpc_status = create_project(project_name, c_filename);
-					if (!cpc_status) {
-						printf("C project '%s' created successfully.\n", project_name);
-					}
-					else {
+					if (cpc_status) {
 						print_cpc_err_msg(cpc_status);
 						goto handle_error;
 					}
+					printf("C project '%s' created successfully.\n", project_name);
 					break;
 				}
 			}
