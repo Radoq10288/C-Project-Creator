@@ -36,7 +36,7 @@ int cpc_about(void) {
 int cpc_conditions(void) {
 	puts("GNU GENERAL PUBLIC LICENSE\n"
 		 "TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION\n\n"
-		 "0. This License applies to any program or other work which contains\n"
+		 "This License applies to any program or other work which contains\n"
 		 "a notice placed by the copyright holder saying it may be distributed\n"
 		 "under the terms of this General Public License.  The \"Program\", below,\n"
 		 "refers to any such program or work, and a \"work based on the Program\"\n"
