@@ -28,6 +28,7 @@
 
 
 #include "cpcerr.h"
+#include "details.h"
 #include "help.h"
 #include "pc.h"
 #include <stdio.h>
@@ -39,18 +40,18 @@ int main(int argc, char **argv) {
 		 *c_filename = argv[2];
 
 	char *cpc_commands[] = {
-		"help", "new"
+		"about", "help", "new"
 	};
 
 	/* TODO
 	 * Need definition of the purpose of 'arg_number'.
 	 */
 	int arg_number[] = {
-		3, 4
+		2, 3, 4
 	};
 
 	int (*exec_cpc_command[])() = {
-		&cpc_help, &create_new_file
+		&cpc_about, &cpc_help, &create_new_file
 	};
 
 	int cc_size = sizeof(cpc_commands) / sizeof(char*),
