@@ -61,11 +61,10 @@ int create_txt_file(char *filename, char *file_extension, char *file_content[], 
 	strcpy(ctf_filename, filename);
 	strcat(ctf_filename, file_extension);
 
-	new_file = fopen(ctf_filename, "r");
-	if (new_file == NULL) {
-		new_file = fopen(ctf_filename, "w");
-		if (new_file == NULL) {
+	if ((new_file = fopen(ctf_filename, "r")) == NULL) {
+		if ((new_file = fopen(ctf_filename, "w")) == NULL) {
 			ctf_status = FAILED_CREATE_FILE;
+			free(ctf_filename);
 			goto handle_error;
 		}
 		else {
@@ -77,11 +76,12 @@ int create_txt_file(char *filename, char *file_extension, char *file_content[], 
 	}
 	else {
 		ctf_status = FILE_EXIST;
+		free(ctf_filename);
 		goto handle_error;
 	}
 
-	free(ctf_filename);
 	ctf_filename = NULL;
+	free(ctf_filename);
 	fclose(new_file);
 
 	return CPC_OK;
