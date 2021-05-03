@@ -72,6 +72,28 @@
 	 */
 	int create_gdl_makefile(char *c_file, char *h_file);
 
+	/* Description:	Creates makefile to build Win32 static library.
+	 *
+	 * Parameter:
+	 *   c_file	-	filename of the created C file.
+	 *   h_file -	filename of the created C header file.
+	 *
+	 * Return:		If function succeed, return 0. Else, return non-
+	 *				negative number.
+	 */
+	int create_wsl_makefile(char *c_file, char *h_file);
+
+	/* Description:	Creates makefile to build win32 dynamic library.
+	 *
+	 * Parameter:
+	 *   c_file	-	filename of the created C file.
+	 *   h_file -	filename of the created C header file.
+	 *
+	 * Return:		If function succeed, return 0. Else, return non-
+	 *				negative number.
+	 */
+	int create_wdl_makefile(char *c_file, char *h_file);
+
 #endif // _MKFC_H_INCLUDED_
 
 
