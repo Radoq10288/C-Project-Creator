@@ -100,12 +100,12 @@ static int create_makefile(char *c_filename, char *makefile_type) {
 	else {
 		char *mkf_type[] = {
 			"gcc-static-lib", "gcc-dyn-lib",
-			"win32-static-lib"
+			"win32-static-lib", "win32-dyn-lib"
 		};
 
 		int (*exec_cm[])() = {
 			&create_gsl_makefile, &create_gdl_makefile,
-			&create_wsl_makefile
+			&create_wsl_makefile, &create_wdl_makefile
 		};
 
 		int mt_size = sizeof(mkf_type) / sizeof(char*),
