@@ -170,6 +170,7 @@ int create_gdl_makefile(char *c_file, char *h_file) {
 
 
 int create_wsl_makefile(char *c_file, char *h_file) {
+
 	char *makefile_template[] = {
 		"# Directories\n",
 		"BINDIR = bin\n",
@@ -205,10 +206,11 @@ int create_wsl_makefile(char *c_file, char *h_file) {
 
 	ctf_status = create_txt_file("makefile", "", makefile_template, mt_size);
 	if (ctf_status) {
-		return -1;
+		return ctf_status;
 	}
-
-	return 0;
+	else {
+		return CPC_OK;
+	}
 }
 
 
