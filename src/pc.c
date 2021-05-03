@@ -99,11 +99,11 @@ static int create_makefile(char *c_filename, char *makefile_type) {
 	}
 	else {
 		char *mkf_type[] = {
-			"gcc-static-lib"
+			"gcc-static-lib", "gcc-dyn-lib"
 		};
 
 		int (*exec_cm[])() = {
-			&create_gsl_makefile
+			&create_gsl_makefile, &create_gdl_makefile
 		};
 
 		int mt_size = sizeof(mkf_type) / sizeof(char*),
