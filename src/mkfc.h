@@ -46,6 +46,21 @@
 	 */
 	int create_exec_makefile(char *c_filename);
 
+
+	/* Functions that create makefile to build GCC library.
+	 */
+
+	/* Description:	Creates makefile to build GCC static library.
+	 *
+	 * Parameter:
+	 *   c_file	-	filename of the created C file.
+	 *   h_file -	filename of the created C header file.
+	 *
+	 * Return:		If function succeed, return 0. Else, return non-
+	 *				negative number.
+	 */
+	int create_gsl_makefile(char *c_file, char *h_file);
+
 #endif // _MKFC_H_INCLUDED_
 
 
