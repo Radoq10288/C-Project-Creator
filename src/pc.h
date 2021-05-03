@@ -35,11 +35,12 @@
 	 * Parameter:
 	 *	project_name	- name of the C project to create.
 	 *	c_filename		- name of the C file to create.
+	 *	project_type	- type of C project to create.
 	 *
 	 * Return:		If function succeed, return 0. Else, return non-
 	 *				negative value.
 	 */
-	int create_project(char *project_name, char *c_filename);
+	int create_project(char *project_name, char *c_filename, char* project_type);
 
 	/* Description:	Creates C or C header file.
 	 *
