@@ -37,7 +37,8 @@
 
 int main(int argc, char **argv) {
 	char *project_name = argv[1],
-		 *c_filename = argv[2];
+		 *c_filename = argv[2],
+		 *project_type = argv[3];
 
 	char *cpc_commands[] = {
 		"about", "c", "help",
@@ -126,12 +127,12 @@ int main(int argc, char **argv) {
 					puts("Few arguments.");
 					goto handle_error;
 				}
-				else if (argc > 3) {
+				else if (argc > 4) {
 					puts("Too many arguments.");
 					goto handle_error;
 				}
 				else {
-					cpc_status = create_project(project_name, c_filename);
+					cpc_status = create_project(project_name, c_filename, project_type);
 					if (cpc_status) {
 						print_cpc_err_msg(cpc_status);
 						goto handle_error;
