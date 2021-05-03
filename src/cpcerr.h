@@ -31,7 +31,7 @@
 #define _CPCERR_H_
 
 	typedef enum {
-		CPC_OK						= 0,		// No error
+		CPC_OK						= 0x0,		// No error
 		FAILED_CREATE_FILE			= 0x1388,	// Failed to create file
 		FAILED_DATE_TIME_RETRIEVE	= 0x1389,	// Failed to retrieve system date & time
 		FILE_EXIST					= 0x138a,	// File already exist
