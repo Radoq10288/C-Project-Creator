@@ -254,3 +254,69 @@ int create_h_file(char *h_filename) {
 }
 
 
+int create_wh_file(char *h_filename) {
+	char *current_date_time = get_sys_date_time(),
+		 *macro_name = toupper_string(h_filename);
+
+	/* Transform each non-alphabet characters to underscore
+	 * (_) character.
+	 */
+	int char_index = 0;
+
+	while (macro_name[char_index] != '\0') {
+		if (!isalnum(macro_name[char_index])) {
+			macro_name[char_index] = '_';
+		}
+
+		char_index++;
+	}
+
+	char *win_header_template[] = {
+		"/* File:\t\t\t", h_filename, ".h\n",
+		" *\n",
+		" * Author:\t\t\t\n",
+		" *\n",
+		" * Description:\t\t\n",
+		" *\n",
+		" * Date created:\t", current_date_time, "\n",
+		" */\n\n\n",
+		"#ifndef _", macro_name, "_H_",
+		"\n",
+		"#define _", macro_name, "_H_",
+		"\n\n",
+		"\t/* You should define ", macro_name, "_EXPORTS *only* when building the DLL. */\n",
+		"\t#ifdef ", macro_name, "_EXPORTS\n",
+		"\t\t#define ", macro_name, "API __declspec(dllexport)\n",
+		"\t#else\n",
+		"\t\t#define ", macro_name, "API __declspec(dllimport)\n",
+		"\t#endif\n\n",
+		"\t/* Define calling convention in one place, for convenience. */\n",
+		"\t#define ", macro_name, "CALL __cdecl\n\n",
+		"\t/* Make sure functions are exported with C linkage under C++ compilers. */\n",
+		"\t#ifdef __cplusplus\n",
+		"\t\textern \"C\" {\n",
+		"\t#endif\n\n",
+		"\t\t\t/* Declare function using the above definitions. */\n",
+		"\t\t\t/* Function(s) here... */\n\n",
+		"\t#ifdef __cplusplus\n",
+		"\t\t} // __cplusplus defined.\n",
+		"\t#endif\n\n",
+		"#endif // _", macro_name, "_H_INCLUDED_",
+		"\n\n\n"
+	};
+
+	int wht_size = sizeof(win_header_template) / sizeof(char*),
+		ctf_status;
+
+	ctf_status = create_txt_file(h_filename, ".h", win_header_template, wht_size);
+	if (ctf_status) {
+		goto handle_error;
+	}
+
+	return CPC_OK;
+
+	handle_error:
+	return ctf_status;
+}
+
+
