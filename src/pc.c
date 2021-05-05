@@ -155,11 +155,23 @@ int create_project(char *project_name, char *c_filename, char* project_type) {
 			goto handle_error;
 		}
 	}
+	else if (strcmp(project_type, "win32-dyn-lib") == 0) {
+		cp_status = create_ec_file(c_filename);
+		if (cp_status) {
+			goto handle_error;
+		}
+
+		cp_status = create_wh_file(c_filename);
+		if (cp_status) {
+			goto handle_error;
+		}
+	}
 	else {
 		cp_status = create_ec_file(c_filename);
 		if (cp_status) {
 			goto handle_error;
 		}
+
 		cp_status = create_h_file(c_filename);
 		if (cp_status) {
 			goto handle_error;
