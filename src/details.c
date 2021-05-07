@@ -14,7 +14,7 @@
 
 int cpc_about(void) {
 	// Short notice as indicated in GPLv2
-	puts("C Project Creator 0.1.0-alpha, Copyright (C) 2021 Radoq10288\n"
+	puts("C Project Creator 0.2.0-alpha, Copyright (C) 2021 Radoq10288\n"
 		 "C Project Creator comes with ABSOLUTELY NO WARRANTY; for details type `cpc w'.\n"
 		 "This is free software, and you are welcome to redistribute it\n"
 		 "under certain conditions; type `cpc c' for details.\n"
@@ -23,7 +23,7 @@ int cpc_about(void) {
 	// Program and author details
 	puts("Program:        C Project Creator\n"
 		 "Date created:   04-17-2021\n"
-		 "Version:        0.1.0-alpha\n"
+		 "Version:        0.2.0-alpha\n"
 		 "Author:         Radoq10288\n"
 		 "Contact:\n"
 		 "  Email:        radoq10288@gmail.com\n"
