@@ -8,15 +8,10 @@ if not exist "Makefile" (
 	rem Clear the screen
 	cls
 
-	rem Create 'obj' directory if it doesn't exist.
-	if not exist "obj" (
-		mkdir obj
-	)
-
 	echo.
 	echo ---------------Clean directory------------------
 	rem Clean the current directory
-	mingw32-make clean
+	mingw32-make clean-build-files
 
 	echo.
 	echo.
