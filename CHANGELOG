@@ -1,0 +1,14 @@
+What's New
+
+
+[0.2.0-alpha]  5-7-2021
+Latest release
+Feature:
+• Setup a C project to build GCC library, static (.lib) or dynamic (.dll).
+• Setup a C project to build windows library, static (.a) or dynamic (.so).
+
+
+[0.1.0-alpha]  5-3-2021
+Initial version
+
+
