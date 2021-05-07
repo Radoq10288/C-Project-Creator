@@ -76,6 +76,17 @@
 	 */
 	int create_txt_file(char *filename, char *file_extension, char *file_content[], int fc_size);
 
+	/* Description:	Create C header file specific for windows for
+	 *				building dynamic linked library (dll).
+	 *
+	 * Parameter:
+	 *	h_filename	- filename of the C header file to create.
+	 *
+	 * Return:		If function succeed, it return 0. Else, return
+	 *				non-negative value.
+	 */
+	int create_wh_file(char *h_filename);
+
 #endif // _FC_H_INCLUDED_
 
 

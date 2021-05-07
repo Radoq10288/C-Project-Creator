@@ -78,3 +78,185 @@ int create_exec_makefile(char *c_filename) {
 }
 
 
+int create_gsl_makefile(char *c_file, char *h_file) {
+
+	char *makefile_template[] = {
+		"# Directories\n",
+		"BINDIR = bin\n",
+		"SRCDIR = src\n",
+		"OBJDIR = obj\n\n\n",
+		"# Program name\n",
+		"PROGRAM = $(BINDIR)/", "lib",  h_file, ".a\n\n",
+		"# C compiler\n",
+		"CC = mingw32-gcc\n\n",
+		"# C compiler flags\n",
+		"CFLAGS = -g -pedantic -std=c11 -Wall\n\n\n",
+		"# C files\n",
+		"CFILES = $(SRCDIR)/", h_file, ".c\n\n",
+		"# C header file\n",
+		"CHFILES = $(SRCDIR)/", h_file, ".h\n\n",
+		"# Object files\n",
+		"OBJFILES = $(OBJDIR)/", h_file, ".o\n\n\n",
+        "# Build GCC static library\n",
+        "$(PROGRAM) : $(OBJFILES)\n",
+        "\tar rcs $(PROGRAM) $(OBJFILES)\n\n",
+		"$(OBJDIR)/", h_file, ".o : $(CFILES)", " $(CHFILES)", "\n",
+		"\t$(CC) -c $(CFILES) $(CFLAGS)\n\n",
+		"# Move any '*.o' file(s) to 'obj' directory.\n",
+		"\t@mv *.o obj\n\n\n",
+		"# Clean working directory\n",
+		".PHONY: clean\n",
+		"clean :\n",
+		"\trm -f $(PROGRAM) $(OBJFILES)\n\n\n"
+	};
+
+	int mt_size = sizeof(makefile_template) / sizeof(char*),
+		cgm_status;
+
+	cgm_status = create_txt_file("makefile", "", makefile_template, mt_size);
+	if (cgm_status) {
+		return cgm_status;
+	}
+	else {
+		return CPC_OK;
+	}
+}
+
+
+int create_gdl_makefile(char *c_file, char *h_file) {
+
+	char *makefile_template[] = {
+		"# Directories\n",
+		"BINDIR = bin\n",
+		"SRCDIR = src\n",
+		"OBJDIR = obj\n\n\n",
+		"# Program name\n",
+		"PROGRAM = $(BINDIR)/lib", c_file, ".so\n\n",
+		"# C compiler\n",
+		"CC = mingw32-gcc\n\n",
+		"# C compiler flags\n",
+		"CFLAGS = -g -pedantic -std=c11 -Wall -fPIC\n\n\n",
+		"# C files\n",
+		"CFILES = $(SRCDIR)/", c_file, ".c\n\n",
+		"# C header file\n",
+		"CHFILES = $(SRCDIR)/", h_file, ".h\n\n",
+		"# Object files\n",
+		"OBJFILES = $(OBJDIR)/", c_file, ".o\n\n\n",
+		"# Build GCC dynamic library\n",
+		"$(PROGRAM) : $(OBJFILES)\n",
+		"\t$(CC) -o $(PROGRAM) $(OBJFILES) -shared\n\n",
+		"$(OBJDIR)/", c_file, ".o : $(CFILES) $(CHFILES)\n",
+		"\t$(CC) -c $(CFILES) $(CFLAGS)\n\n",
+		"# Move any '*.o' file(s) to 'obj' directory.\n",
+		"\t@mv *.o obj\n\n\n",
+		"# Clean working directory\n",
+		".PHONY: clean\n",
+		"clean :\n",
+		"\trm -f $(PROGRAM) $(OBJFILES)"
+		"\n\n\n"
+	};
+
+	int mt_size = sizeof(makefile_template) / sizeof(char*),
+		ctf_status;
+
+	ctf_status = create_txt_file("makefile", "", makefile_template, mt_size);
+	if (ctf_status) {
+		return ctf_status;
+	}
+	else {
+		return CPC_OK;
+	}
+}
+
+
+int create_wsl_makefile(char *c_file, char *h_file) {
+
+	char *makefile_template[] = {
+		"# Directories\n",
+		"BINDIR = bin\n",
+		"SRCDIR = src\n",
+		"OBJDIR = obj\n\n\n",
+		"# Program name\n",
+		"PROGRAM = $(BINDIR)/",  h_file, ".lib\n\n",
+		"# C compiler\n",
+		"CC = mingw32-gcc\n\n",
+		"# C compiler flags\n",
+		"CFLAGS = -g -pedantic -std=c11 -Wall\n\n\n",
+		"# C files\n",
+		"CFILES = $(SRCDIR)/", h_file, ".c\n\n",
+		"# C header file\n",
+		"CHFILES = $(SRCDIR)/", h_file, ".h\n\n",
+		"# Object files\n",
+		"OBJFILES = $(OBJDIR)/", h_file, ".o\n\n\n",
+        "# Build Windows static library\n",
+        "$(PROGRAM) : $(OBJFILES)\n",
+        "\tar rcs $(PROGRAM) $(OBJFILES)\n\n",
+		"$(OBJDIR)/", h_file, ".o : $(CFILES)", " $(CHFILES)", "\n",
+		"\t$(CC) -c $(CFILES) $(CFLAGS)\n\n",
+		"# Move any '*.o' file(s) to 'obj' directory.\n",
+		"\t@mv *.o obj\n\n\n",
+		"# Clean working directory\n",
+		".PHONY: clean\n",
+		"clean :\n",
+		"\trm -f $(PROGRAM) $(OBJFILES)\n\n\n"
+	};
+
+	int mt_size = sizeof(makefile_template) / sizeof(char*),
+		ctf_status;
+
+	ctf_status = create_txt_file("makefile", "", makefile_template, mt_size);
+	if (ctf_status) {
+		return ctf_status;
+	}
+	else {
+		return CPC_OK;
+	}
+}
+
+
+int create_wdl_makefile(char *c_file, char *h_file) {
+
+	char *makefile_template[] = {
+		"# Directories\n",
+		"BINDIR = bin\n",
+		"SRCDIR = src\n",
+		"OBJDIR = obj\n\n\n",
+		"# Program name\n",
+		"PROGRAM = $(BINDIR)/", c_file, ".dll\n\n",
+		"# C compiler\n",
+		"CC = mingw32-gcc\n\n",
+		"# C compiler flags\n",
+		"CFLAGS = -g -pedantic -std=c11 -Wall\n\n\n",
+		"# C files\n",
+		"CFILES = $(SRCDIR)/", c_file, ".c\n\n",
+		"# C header file\n",
+		"CHFILES = $(SRCDIR)/", h_file, ".h\n\n",
+		"# Object files\n",
+		"OBJFILES = $(OBJDIR)/", c_file, ".o\n\n\n",
+		"# Build GCC dynamic library\n",
+		"$(PROGRAM) : $(OBJFILES)\n",
+		"\t$(CC) -o $(PROGRAM) $(OBJFILES) -shared\n\n",
+		"$(OBJDIR)/", c_file, ".o : $(CFILES) $(CHFILES)\n",
+		"\t$(CC) -c $(CFILES) $(CFLAGS)\n\n",
+		"# Move any '*.o' file(s) to 'obj' directory.\n",
+		"\t@mv *.o obj\n\n\n",
+		"# Clean working directory\n",
+		".PHONY: clean\n",
+		"clean :\n",
+		"\trm -f $(PROGRAM) $(OBJFILES)"
+		"\n\n\n"
+	};
+
+	int mt_size = sizeof(makefile_template) / sizeof(char*),
+		ctf_status;
+
+	ctf_status = create_txt_file("makefile", "", makefile_template, mt_size);
+	if (ctf_status) {
+		return ctf_status;
+	}
+	else {
+		return CPC_OK;
+	}
+}
+
+
