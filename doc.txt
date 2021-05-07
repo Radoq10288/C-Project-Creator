@@ -1,21 +1,65 @@
-C Project Creator
+-----------------------------------------------------------------------
+                    C Project Creator documentation
+-----------------------------------------------------------------------
 
-List of arguments.
+
+List of arguments
+-----------------
 
 Arguments for creating C project.
 <Project-Name>      - Name of project to create delimited by hypen (-)
                       or underscore. Don't use space to delimit project
                       name as 'cpc' will assume that the second word for
                       the project name (if any), will be the next
-					  argument.
+                      argument.
 <Filename>          - Filename for the C file to create.
 
+Optional arguments for creating C project that build GCC or Win32 library.
+gcc-static-lib      - To setup a C project that builds GCC static (*.a)
+                      library.
+gcc-dyn-lib         - To setup a C project that builds GCC dynmaic (*.so)
+                      library or shared object.
+win32-static-lib    - To setup a C project that builds windows specific
+                      win32 static (*.lib) library.
+win32-dyn-lib       - To setup a C project that builds windows specific
+                      win32 dynamic (*.dll) library.
+
+
 Arguments for creating individual file.
-new              - To create C file or C header file.
+new                 - To create C file or C header file.
 -c                  - Indicate that C file will be created. Use together
-                      with 'create'.
+                      with 'new'.
 -h                  - Indicate that C header file will be created. Use
-                      together with 'create'.
+                      together with 'new'.
 <Filename>          - Filename for the C file or C header file to create.
+
+
+
+Windows build (MinGW)
+------------------------
+
+To build C project creator in windows using MinGW:
+
+* Open a command prompt in 'C-Project-Creator' directory.
+* Type 'make build-debug'.
+
+To use it, inside build directory, copy 'CPC' directory to windows 'C:\'
+drive (recommended).
+
+To add 'CPC\bin' to windows environment variable 'Path' manually:
+
+On windows 10
+* Right click 'This PC' then select 'more->Properties'. Or search 'About'.
+* On 'About' window, go to 'Related Settings' and select 'Advanced System Settings'.
+* On 'System Properties' window, click 'Environment Variables...'.
+* Now, on 'Environment Variables' window, go to 'System Variables' and
+  look for the variable 'Path'.
+* Select the variable 'Path' and click the 'Edit' button.
+* On 'Edit environment variable' window, click 'New' button and add the
+  string (without the double quote) "C:\CPC\bin".
+
+Earlier previous windows version
+To do this in earlier previous windows version, it is similar to instructions
+for windows 10 with minimal differences.
 
 
